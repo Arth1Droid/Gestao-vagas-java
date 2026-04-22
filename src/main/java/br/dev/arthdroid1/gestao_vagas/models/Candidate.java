@@ -1,13 +1,20 @@
 package br.dev.arthdroid1.gestao_vagas.models;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
+@Entity
+@Table(name = "tb_candidate")
 public class Candidate {
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 	private String name;
 	@Pattern(regexp = "\\S+", message = "the username field must not contain spaces")
@@ -18,6 +25,9 @@ public class Candidate {
 	private String password;
 	private String description;
 	private String curriculum;
+
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 	
 	public Candidate() {
 		
@@ -85,11 +95,12 @@ public class Candidate {
 	public UUID getId() {
 		return id;
 	}
-	
-	
-	
-	
-	
-	
 
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 }
